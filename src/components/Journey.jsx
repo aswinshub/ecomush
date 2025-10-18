@@ -9,7 +9,7 @@ const Journey = () => {
           <div className="profile-section">
             <div className="profile-container">
               <div className="profile-pattern"></div>
-              <img src="/src/assets/profile.png" alt="Aswin Chandran" className="profile-image" />
+              <img src="https://res.cloudinary.com/do3ps47zs/image/upload/v1760780423/profile_how1f7.png" alt="Aswin Chandran" className="profile-image" />
             </div>
           </div>
           

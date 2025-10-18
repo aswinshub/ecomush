@@ -54,7 +54,7 @@ const About = () => {
           
           <div className="about-visual fade-in-right">
             <div className="bed-container">
-              <img src="/src/assets/bed.png" alt="Mushroom Bed" className="bed-image" />
+              <img src="https://res.cloudinary.com/do3ps47zs/image/upload/v1760780423/bed_virzxc.png" alt="Mushroom Bed" className="bed-image" />
             </div>
           </div>
         </div>
