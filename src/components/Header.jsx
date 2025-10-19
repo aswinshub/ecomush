@@ -51,6 +51,14 @@ const Header = () => {
               <li>
                 <button 
                   className="nav-link"
+                  onClick={() => scrollToSection('recipes')}
+                >
+                  Mushroom Recipes
+                </button>
+              </li>
+              <li>
+                <button 
+                  className="nav-link"
                   onClick={() => scrollToSection('contact')}
                 >
                   Contact us

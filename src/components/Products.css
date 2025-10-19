@@ -201,3 +201,19 @@
     font-size: 1.1rem;
   }
 }
+.section-titlegreen {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+
+.section-titlegreen.fade-in-up {
+ 
+  color: #ffffff;
+      font-size: 1.1rem;
+
+
+}

@@ -45,8 +45,8 @@ const Products = () => {
     <section id="products" className="products parallax">
       <div className="container">
         <div className="products-content">
-          <h2 className="section-title fade-in-up">Our Products</h2>
-          <p className="section-subtitle fade-in-up">
+          <h2 className=".section-titlegreen">Our Products</h2>
+          <p className=".section-titlegreen fade-in-up">
             Discover our range of fresh, organic mushrooms grown with care in Kerala
           </p>
           

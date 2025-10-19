@@ -15,7 +15,7 @@ const Journey = () => {
           
           <div className="story-section">
             <h2 className="story-title">
-              Journey of ecomush
+              Techie to Farming : The Journey Behind ecomush
             </h2>
             <div className="story-description">
               <p>
