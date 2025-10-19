@@ -11,7 +11,7 @@ const Recipes = () => {
       id: 1,
       title: "മഷ്റൂം ഫ്രൈ (Mushroom Fry)",
       description: "Traditional Kerala style mushroom fry.",
-      image: "/src/assets/recipe/Fry.png",
+      image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760877850/Fry_bkweuf.png",
       ingredients: [
         "മഷ്റൂം – 250 ഗ്രാം",
         "ഉള്ളി – 1 വലുത് (നരിഞ്ഞത്)",
@@ -37,7 +37,7 @@ const Recipes = () => {
       id: 2,
       title: "മഷ്റൂം കറി (Mushroom Curry)",
       description: "Rich and flavorful mushroom curry.",
-      image: "/src/assets/recipe/cury.png",
+      image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760877850/cury_bkc7jv.png",
       ingredients: [
         "മഷ്റൂം – 200 ഗ്രാം",
         "ഉള്ളി – 1 എണ്ണം (നരിഞ്ഞത്)",
@@ -63,7 +63,7 @@ const Recipes = () => {
       id: 3,
       title: "മഷ്റൂം സ്റ്റൂ (Mushroom Stew)",
       description: "Comforting coconut milk stew.",
-      image: "/src/assets/recipe/Stew.png",
+      image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760877850/Stew_ngl91p.png",
       tags: ["Traditional", "Coconut"],
       ingredients: [
         "മഷ്റൂം – 200 ഗ്രാം",
@@ -108,7 +108,7 @@ const Recipes = () => {
       id: 5,
       title: "മഷ്റൂം ബിരിയാണി (Mushroom Biryani)",
       description: "Aromatic and flavorful biryani.",
-      image: "/src/assets/recipe/Biriyani.png",
+      image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760877850/Biriyani_inkqcu.png",
       tags: ["Biryani", "Festive"],
       ingredients: [
         "ബാസ്മതി അരി – 2 കപ്പ്",
@@ -135,7 +135,7 @@ const Recipes = () => {
       id: 6,
       title: "മഷ്റൂം തോരൻ (Mushroom Thoran)",
       description: "Traditional Kerala side dish.",
-      image: "/src/assets/recipe/thoran.png",
+      image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760877850/thoran_lto6ks.png",
       tags: ["Traditional", "Side Dish"],
       ingredients: [
         "മഷ്റൂം – 200 ഗ്രാം",
