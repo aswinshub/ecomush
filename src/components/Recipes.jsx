@@ -82,28 +82,7 @@ const Recipes = () => {
       ],
       youtubeVideo: "https://www.youtube.com/embed/QunFxvL4PBQ"
     },
-    {
-      id: 4,
-      title: "ക്രിസ്പി മഷ്റൂം പൊരിച്ചത് (Crispy Mushroom Fry)",
-      description: "Crispy and delicious snack.",
-      image: "/src/assets/recipe/Fry.png",
-      tags: ["Snack", "Crispy"],
-      ingredients: [
-        "മഷ്റൂം – 250 ഗ്രാം",
-        "മൈദ – 3 ടേബിൾ സ്പൂൺ",
-        "അരിപൊടി – 2 ടേബിൾ സ്പൂൺ",
-        "മുളകുപൊടി – 1 ടീസ്പൂൺ",
-        "കുരുമുളകുപൊടി – ½ ടീസ്പൂൺ",
-        "ഉപ്പ്, വെള്ളം, എണ്ണ"
-      ],
-      steps: [
-        "മൈദ, അരിപൊടി, മസാലകൾ എല്ലാം ചേർത്ത് മിശ്രിതം ഉണ്ടാക്കുക",
-        "അതിൽ വെള്ളം ചേർത്ത് മിതമായ കട്ടിയുള്ള മാവ് ഉണ്ടാക്കുക",
-        "മഷ്റൂം മാവ് മുക്കി ചൂടായ എണ്ണയിൽ പൊരിച്ചെടുക്കുക",
-        "കുരുമുളകുപൊടി തളിച്ച് ചൂടോടെ വിളമ്പുക"
-      ],
-      youtubeVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-    },
+    
     {
       id: 5,
       title: "മഷ്റൂം ബിരിയാണി (Mushroom Biryani)",
