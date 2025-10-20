@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Recipes.css';
 
 const Recipes = () => {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showAllRecipes, setShowAllRecipes] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const sliderRef = useRef(null);
 
   const recipes = [
@@ -143,13 +145,36 @@ const Recipes = () => {
     setSelectedRecipe(null);
   };
 
+  // Check if mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleShowAllRecipes = () => {
+    setShowAllRecipes(!showAllRecipes);
+  };
+
+  // Get recipes to display based on mobile view and showAllRecipes state
+  const getDisplayRecipes = () => {
+    if (isMobile && !showAllRecipes) {
+      return recipes.slice(0, 3);
+    }
+    return recipes;
+  };
+
   const nextSlide = () => {
-    const maxSlides = Math.ceil(recipes.length / 4) - 1;
+    const maxSlides = Math.ceil(recipes.length / 3) - 1;
     setCurrentSlide((prev) => (prev + 1) % (maxSlides + 1));
   };
 
   const prevSlide = () => {
-    const maxSlides = Math.ceil(recipes.length / 4) - 1;
+    const maxSlides = Math.ceil(recipes.length / 3) - 1;
     setCurrentSlide((prev) => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
   };
 
@@ -157,7 +182,7 @@ const Recipes = () => {
     setCurrentSlide(index);
   };
 
-  const maxSlides = Math.ceil(recipes.length / 4) - 1;
+  const maxSlides = Math.ceil(recipes.length / 3) - 1;
 
   return (
     <section id="recipes" className="recipes">
@@ -168,64 +193,116 @@ const Recipes = () => {
             Discover delicious mushroom recipes to make the most of your fresh produce
           </p>
           
-          <div className="recipes-slider-container">
-            <button className="slider-btn prev-btn" onClick={prevSlide}>
-              ‹
-            </button>
-            
-            <div className="recipes-slider" ref={sliderRef}>
-              <div 
-                className="recipes-track"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-              >
-                {Array.from({ length: maxSlides + 1 }, (_, slideIndex) => (
-                  <div key={slideIndex} className="slide-group">
-                    {recipes.slice(slideIndex * 4, (slideIndex + 1) * 4).map((recipe, cardIndex) => (
-                      <div key={recipe.id} className="recipe-card" style={{ animationDelay: `${cardIndex * 0.1}s` }}>
-                        <div className="recipe-image">
-                          <img src={recipe.image} alt={recipe.title} />
-                        </div>
-                        
-                        <div className="recipe-info">
-                          <h3 className="recipe-title">{recipe.title}</h3>
-                          <p className="recipe-description">{recipe.description}</p>
-                          
-                          {recipe.tags && (
-                            <div className="recipe-tags">
-                              {recipe.tags.map((tag, idx) => (
-                                <span key={idx} className="tag">{tag}</span>
-                              ))}
+          {/* Desktop Slider View */}
+          {!isMobile && (
+            <>
+              <div className="recipes-slider-container">
+                <button className="slider-btn prev-btn" onClick={prevSlide}>
+                  ‹
+                </button>
+                
+                <div className="recipes-slider" ref={sliderRef}>
+                  <div 
+                    className="recipes-track"
+                    style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                  >
+                    {Array.from({ length: maxSlides + 1 }, (_, slideIndex) => (
+                      <div key={slideIndex} className="slide-group">
+                        {recipes.slice(slideIndex * 3, (slideIndex + 1) * 3).map((recipe, cardIndex) => (
+                          <div key={recipe.id} className="recipe-card" style={{ animationDelay: `${cardIndex * 0.1}s` }}>
+                            <div className="recipe-image">
+                              <img src={recipe.image} alt={recipe.title} />
                             </div>
-                          )}
-                          
-                          <button 
-                            className="view-recipe-btn"
-                            onClick={() => openRecipeModal(recipe)}
-                          >
-                            View Recipe
-                          </button>
-                        </div>
+                            
+                            <div className="recipe-info">
+                              <h3 className="recipe-title">{recipe.title}</h3>
+                              <p className="recipe-description">{recipe.description}</p>
+                              
+                              {recipe.tags && (
+                                <div className="recipe-tags">
+                                  {recipe.tags.map((tag, idx) => (
+                                    <span key={idx} className="tag">{tag}</span>
+                                  ))}
+                                </div>
+                              )}
+                              
+                              <button 
+                                className="view-recipe-btn"
+                                onClick={() => openRecipeModal(recipe)}
+                              >
+                                View Recipe
+                              </button>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     ))}
                   </div>
+                </div>
+                
+                <button className="slider-btn next-btn" onClick={nextSlide}>
+                  ›
+                </button>
+              </div>
+              
+              <div className="slider-dots">
+                {Array.from({ length: maxSlides + 1 }, (_, index) => (
+                  <button
+                    key={index}
+                    className={`dot ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => goToSlide(index)}
+                  />
                 ))}
               </div>
+            </>
+          )}
+
+          {/* Mobile Vertical View */}
+          {isMobile && (
+            <div className="mobile-recipes-container">
+              <div className="mobile-recipes-grid">
+                {getDisplayRecipes().map((recipe, index) => (
+                  <div key={recipe.id} className="recipe-card mobile-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div className="recipe-image">
+                      <img src={recipe.image} alt={recipe.title} />
+                    </div>
+                    
+                    <div className="recipe-info">
+                      <h3 className="recipe-title">{recipe.title}</h3>
+                      <p className="recipe-description">{recipe.description}</p>
+                      
+                      {recipe.tags && (
+                        <div className="recipe-tags">
+                          {recipe.tags.map((tag, idx) => (
+                            <span key={idx} className="tag">{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                      
+                      <button 
+                        className="view-recipe-btn"
+                        onClick={() => openRecipeModal(recipe)}
+                      >
+                        View Recipe
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {!showAllRecipes && recipes.length > 3 && (
+                <button className="see-more-btn" onClick={toggleShowAllRecipes}>
+                  See More Recipes
+                </button>
+              )}
+              
+              {showAllRecipes && (
+                <button className="see-more-btn" onClick={toggleShowAllRecipes}>
+                  Show Less
+                </button>
+              )}
             </div>
-            
-            <button className="slider-btn next-btn" onClick={nextSlide}>
-              ›
-            </button>
-          </div>
-          
-          <div className="slider-dots">
-            {Array.from({ length: maxSlides + 1 }, (_, index) => (
-              <button
-                key={index}
-                className={`dot ${index === currentSlide ? 'active' : ''}`}
-                onClick={() => goToSlide(index)}
-              />
-            ))}
-          </div>
+          )}
         </div>
       </div>
 

@@ -198,7 +198,7 @@
   }
 }
 .section-title {
-  color: white;
+  color: white !important;
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;

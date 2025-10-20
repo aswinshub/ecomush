@@ -16,27 +16,22 @@ const Products = () => {
       description: "Fresh, tender oyster mushrooms with a delicate flavor",
       price: "₹50",
       features: ["150 g","High Protein", "Low Calorie", "Rich in Vitamins"],
-      disabled: false
+      disabled: false,
+      image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760944102/oyister_kqqq4a.png"
     },
     {
       name: "Oyster Mushrooms",
       description: "Fresh, tender oyster mushrooms with a delicate flavor",
       price: "₹80",
       features: ["250 g","Versatile", "Mild Flavor", "Easy to Cook"],
-      disabled: false
+      disabled: false,
+      image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760944102/oyister_kqqq4a.png"
     },
     {
       name: "Oyster Mushroom Pickle",
       description: "Premium oyster mushroom pickle with rich flavor",
       price: "₹150",
       features: ["Premium Quality", "Rich Flavor", "High Nutrition"],
-      disabled: true
-    },
-    {
-      name: "Oyster Mushroom Powder",
-      description: "Fine oyster mushroom powder for cooking and supplements",
-      price: "₹3500/kg",
-      features: ["Variety Pack", "Best Value", "Fresh Daily"],
       disabled: true
     }
   ];
@@ -54,9 +49,17 @@ const Products = () => {
             {products.map((product, index) => (
               <div key={index} className={`product-card scale-in ${product.disabled ? 'disabled' : ''}`} style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="product-image">
-                  <div className="mushroom-display">
-                    <div className="mushroom-icon large float"></div>
-                  </div>
+                  {product.image ? (
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className="product-mushroom-image"
+                    />
+                  ) : (
+                    <div className="mushroom-display">
+                      <div className="mushroom-icon large float"></div>
+                    </div>
+                  )}
                 </div>
                 
                 <div className="product-info">

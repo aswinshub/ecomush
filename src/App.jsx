@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
+import MushroomBenefits from './components/MushroomBenefits';
 import Products from './components/Products';
 import Recipes from './components/Recipes';
 import Journey from './components/Journey';
@@ -15,6 +16,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <MushroomBenefits />
         <Products />
         <Recipes />
         <Journey />

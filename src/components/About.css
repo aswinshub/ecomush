@@ -32,45 +32,6 @@
   margin-bottom: 1.5rem;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.feature {
-  text-align: center;
-  padding: 2rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.feature:hover {
-  transform: translateY(-5px);
-}
-
-.feature-icon {
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-}
-
-.feature h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.feature p {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0;
-}
 
 .about-visual {
   display: flex;
@@ -116,10 +77,6 @@
     font-size: 1.1rem;
   }
   
-  .features {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
   
   .bed-container {
     max-width: 300px;

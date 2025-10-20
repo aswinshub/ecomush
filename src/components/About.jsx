@@ -25,31 +25,6 @@ const About = () => {
               </p>
             </div>
             
-            <div className="features">
-              <div className="feature scale-in">
-                <div className="feature-icon">
-                  <div className="mushroom-icon float"></div>
-                </div>
-                <h3>100% Organic</h3>
-                <p>Grown without harmful pesticides or chemicals</p>
-              </div>
-              
-              <div className="feature scale-in" style={{ animationDelay: '0.2s' }}>
-                <div className="feature-icon">
-                  <div className="mushroom-icon float"></div>
-                </div>
-                <h3>Fresh Daily</h3>
-                <p>Harvested fresh every day for maximum nutrition</p>
-              </div>
-              
-              <div className="feature scale-in" style={{ animationDelay: '0.4s' }}>
-                <div className="feature-icon">
-                  <div className="mushroom-icon float"></div>
-                </div>
-                <h3>Local Grown</h3>
-                <p>Cultivated in Kerala's natural environment</p>
-              </div>
-            </div>
           </div>
           
           <div className="about-visual fade-in-right">
