@@ -14,7 +14,7 @@ const About = () => {
                 We are passionate about bringing you the freshest, most nutritious mushrooms 
                 grown naturally in the pristine environment of Kerala. Our commitment to 
                 organic farming practices ensures that every mushroom we deliver is pure, 
-                fresh, and packed with natural goodness.
+                fresh, and packed with natural goodness.,
               </p>
               <p>
                 Founded with a vision to promote healthy living through natural, organic 
