@@ -14,7 +14,7 @@ const Products = () => {
     {
       name: "Oyster Mushrooms",
       description: "Fresh, tender oyster mushrooms with a delicate flavor",
-      price: "₹50",
+      price: "₹60",
       features: ["150 g","High Protein", "Low Calorie", "Rich in Vitamins"],
       disabled: false,
       image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760944102/oyister_kqqq4a.png"

@@ -81,7 +81,7 @@ const MushroomBenefits = () => {
     <section id="benefits" className="mushroom-benefits">
       <div className="container">
         <div className="benefits-content">
-          <h2 className="section-title">Health Benefits of Mushrooms</h2>
+          <h2 className="health-title">Health Benefits of Mushrooms</h2>
           <p className="section-subtitle">
             Discover why mushrooms are considered a superfood and how they can enhance your well-being
           </p>

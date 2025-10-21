@@ -39,14 +39,8 @@
   margin: 0 auto;
   padding: 0 2rem;
 }
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: black !important;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  transition: none !important;
-  animation: none !important;
+.recipes-title{
+  color: #2d5a2d;
 }
 
 .section-subtitle {

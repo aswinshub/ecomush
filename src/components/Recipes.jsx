@@ -188,7 +188,7 @@ const Recipes = () => {
     <section id="recipes" className="recipes">
       <div className="container">
         <div className="recipes-content">
-          <h2 className="section-title">Mushroom Recipes</h2>
+          <h2 className="recipes-title">Mushroom Recipes</h2>
           <p className="section-subtitle">
             Discover delicious mushroom recipes to make the most of your fresh produce
           </p>
