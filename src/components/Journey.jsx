@@ -1,19 +1,28 @@
 import React from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Journey.css';
 
 const Journey = () => {
+  const [profileRef, profileVisible] = useScrollAnimation({ threshold: 0.2 });
+  const [storyRef, storyVisible] = useScrollAnimation({ threshold: 0.2 });
+
   return (
     <section id="journey" className="journey">
       <div className="container">
         <div className="journey-content">
           <div className="profile-section">
-            <div className="profile-container">
-            
+            <div 
+              ref={profileRef}
+              className={`profile-container zoom-in ${profileVisible ? 'visible' : ''}`}
+            >
               <img src="https://res.cloudinary.com/do3ps47zs/image/upload/v1760780423/profile_how1f7.png" alt="Aswin Chandran" className="profile-image" />
             </div>
           </div>
           
-          <div className="story-section">
+          <div 
+            ref={storyRef}
+            className={`story-section fade-in-right ${storyVisible ? 'visible' : ''}`}
+          >
             <h2 className="story-title">
               Techie to Farming : The Journey Behind ecomush
             </h2>

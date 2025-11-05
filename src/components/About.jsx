@@ -1,13 +1,20 @@
 import React from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './About.css';
 
 const About = () => {
+  const [textRef, textVisible] = useScrollAnimation({ threshold: 0.2 });
+  const [visualRef, visualVisible] = useScrollAnimation({ threshold: 0.2 });
+
   return (
     <section id="about" className="about parallax">
       <div className="container">
         <div className="about-content">
-          <div className="about-text fade-in-left">
-            <h2 >Ecomush : The Fresh Mashrooms <br />in Kerala</h2>
+          <div 
+            ref={textRef}
+            className={`about-text fade-in-left ${textVisible ? 'visible' : ''}`}
+          >
+            <h2 >Ecomush : The Fresh Mushrooms<br />in Kerala</h2>
             <h3 ></h3>
             <div className="about-description">
               <p>
@@ -27,7 +34,10 @@ const About = () => {
             
           </div>
           
-          <div className="about-visual fade-in-right">
+          <div 
+            ref={visualRef}
+            className={`about-visual fade-in-right ${visualVisible ? 'visible' : ''}`}
+          >
             <div className="bed-container">
               <img src="https://res.cloudinary.com/do3ps47zs/image/upload/v1760783197/iPhone_16_Pro_-_2_amkjff.png" alt="Mushroom Bed" className="bed-image" />
             </div>

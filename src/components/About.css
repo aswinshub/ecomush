@@ -1,5 +1,5 @@
 .about {
-  background: linear-gradient(135deg, #41DD5B 0%, #38C653 100%);
+  background: white;
   position: relative;
   overflow: hidden;
 }
@@ -16,7 +16,7 @@
 .section-title {
   font-size: 3rem;
   font-weight: 700;
-  color: white;
+  color: #333;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -28,10 +28,13 @@
 .about-description p {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+  color: #333;
   margin-bottom: 1.5rem;
 }
 
+.about-text h2 {
+  color: #2d5a2d;
+}
 
 .about-visual {
   display: flex;

@@ -1,9 +1,24 @@
 import React from 'react';
 import heroImage from '../assets/Hero.png';
 import AnimatedMushroom from './AnimatedMushroom';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Hero.css';
 
 const Hero = () => {
+  // Hero section animates immediately on page load
+  const [imageVisible, setImageVisible] = React.useState(false);
+  const [buttonVisible, setButtonVisible] = React.useState(false);
+  const imageRef = React.useRef(null);
+  const buttonRef = React.useRef(null);
+  
+  // Make hero visible immediately on mount
+  React.useEffect(() => {
+    setTimeout(() => {
+      setImageVisible(true);
+      setButtonVisible(true);
+    }, 100);
+  }, []);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -15,14 +30,21 @@ const Hero = () => {
     <section id="home" className="hero parallax">
       <div className="container">
         <div className="hero-content">
-          <div className="hero-image-container fade-in-up">
+          <div 
+            ref={imageRef}
+            className={`hero-image-container fade-in-up ${imageVisible ? 'visible' : ''}`}
+          >
             <img src={heroImage} alt="Eco Mush Hero" className="hero-image" />
           </div>
-          <div className="hero-button-container scale-in">
+          <div 
+            ref={buttonRef}
+            className={`hero-button-container scale-in ${buttonVisible ? 'visible' : ''}`}
+          >
             <button 
               className="btn hero-btn"
               onClick={() => scrollToSection('products')}
             >
+              
               Order Now
             </button>
           </div>

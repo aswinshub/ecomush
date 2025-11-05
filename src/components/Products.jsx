@@ -1,12 +1,65 @@
 import React from 'react';
 import AnimatedMushroom from './AnimatedMushroom';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Products.css';
 
+const ProductCard = ({ product, index, handleOrderNow }) => {
+  const [cardRef, cardVisible] = useScrollAnimation({ threshold: 0.1 });
+  
+  return (
+    <div 
+      ref={cardRef}
+      className={`product-card scale-in ${product.disabled ? 'disabled' : ''} ${cardVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${index * 0.15}s` }}
+    >
+      <div className="product-image">
+        {product.image ? (
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="product-mushroom-image"
+          />
+        ) : (
+          <div className="mushroom-display">
+            <div className="mushroom-icon large float"></div>
+          </div>
+        )}
+      </div>
+      
+      <div className="product-info">
+        <h3 className="product-name">{product.name}</h3>
+        <p className="product-description">{product.description}</p>
+        
+        <div className="product-features">
+          {product.features.map((feature, idx) => (
+            <span key={idx} className="feature-tag">{feature}</span>
+          ))}
+        </div>
+        
+        <div className="product-footer">
+          <span className="product-price">{product.price}</span>
+          <button 
+            className={`order-btn ${product.disabled ? 'disabled' : ''}`} 
+            disabled={product.disabled}
+            onClick={() => !product.disabled && handleOrderNow(product.name, product.price)}
+          >
+            {product.disabled ? 'Coming Soon' : 'Order Now'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Products = () => {
+  const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
+  const [subtitleRef, subtitleVisible] = useScrollAnimation({ threshold: 0.2 });
+  const [ctaRef, ctaVisible] = useScrollAnimation({ threshold: 0.2 });
+  
   const handleOrderNow = (productName, productPrice) => {
     const message = `Hi! I'm interested in ordering ${productName} (${productPrice}). Can you please provide more details?`;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/917012892552?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/919895052552?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -14,16 +67,16 @@ const Products = () => {
     {
       name: "Oyster Mushrooms",
       description: "Fresh, tender oyster mushrooms with a delicate flavor",
-      price: "₹60",
-      features: ["150 g","High Protein", "Low Calorie", "Rich in Vitamins"],
+      price: "₹50/100g",
+      features: ["High Protein", "Low Calorie", "Rich in Vitamins"],
       disabled: false,
       image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760944102/oyister_kqqq4a.png"
     },
     {
       name: "Oyster Mushrooms",
       description: "Fresh, tender oyster mushrooms with a delicate flavor",
-      price: "₹80",
-      features: ["250 g","Versatile", "Mild Flavor", "Easy to Cook"],
+      price: "₹90/200 g",
+      features: ["Versatile", "Mild Flavor", "Easy to Cook"],
       disabled: false,
       image: "https://res.cloudinary.com/do3ps47zs/image/upload/v1760944102/oyister_kqqq4a.png"
     },
@@ -40,54 +93,26 @@ const Products = () => {
     <section id="products" className="products parallax">
       <div className="container">
         <div className="products-content">
-          <h2 className=".section-titlegreen">Our Products</h2>
-          <p className=".section-titlegreen fade-in-up">
+        <h2 className="section-title">Our Products</h2>
+        <p className="contact-subtitle">
             Discover our range of fresh, organic mushrooms grown with care in Kerala
           </p>
           
           <div className="products-grid">
             {products.map((product, index) => (
-              <div key={index} className={`product-card scale-in ${product.disabled ? 'disabled' : ''}`} style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="product-image">
-                  {product.image ? (
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      className="product-mushroom-image"
-                    />
-                  ) : (
-                    <div className="mushroom-display">
-                      <div className="mushroom-icon large float"></div>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <p className="product-description">{product.description}</p>
-                  
-                  <div className="product-features">
-                    {product.features.map((feature, idx) => (
-                      <span key={idx} className="feature-tag">{feature}</span>
-                    ))}
-                  </div>
-                  
-                  <div className="product-footer">
-                    <span className="product-price">{product.price}</span>
-                    <button 
-                      className={`order-btn ${product.disabled ? 'disabled' : ''}`} 
-                      disabled={product.disabled}
-                      onClick={() => !product.disabled && handleOrderNow(product.name, product.price)}
-                    >
-                      {product.disabled ? 'Coming Soon' : 'Order Now'}
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <ProductCard 
+                key={index}
+                product={product}
+                index={index}
+                handleOrderNow={handleOrderNow}
+              />
             ))}
           </div>
           
-          <div className="products-cta fade-in-up">
+          <div 
+            ref={ctaRef}
+            className={`products-cta fade-in-up ${ctaVisible ? 'visible' : ''}`}
+          >
             <p className="cta-text">Need custom quantities or have special requirements?</p>
             <button className="btn" onClick={() => handleOrderNow('Custom Order', 'Custom Price')}>Contact Us</button>
           </div>

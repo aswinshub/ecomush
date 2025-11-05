@@ -1,7 +1,37 @@
 import React from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './MushroomBenefits.css';
 
+const BenefitCard = ({ benefit, index }) => {
+  const [cardRef, cardVisible] = useScrollAnimation({ threshold: 0.1 });
+  
+  return (
+    <div 
+      ref={cardRef}
+      className={`benefit-card ${cardVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
+      <div className="benefit-icon">
+        <span className="icon-emoji">{benefit.icon}</span>
+      </div>
+      
+      <div className="benefit-content">
+        <h3 className="benefit-title">{benefit.title}</h3>
+        <p className="benefit-description">{benefit.description}</p>
+        
+        <ul className="benefit-details">
+          {benefit.details.map((detail, idx) => (
+            <li key={idx}>{detail}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 const MushroomBenefits = () => {
+  const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
+  const [subtitleRef, subtitleVisible] = useScrollAnimation({ threshold: 0.2 });
   const benefits = [
     {
       id: 1,
@@ -81,33 +111,27 @@ const MushroomBenefits = () => {
     <section id="benefits" className="mushroom-benefits">
       <div className="container">
         <div className="benefits-content">
-          <h2 className="health-title">Health Benefits of Mushrooms</h2>
-          <p className="section-subtitle">
+          <h2 
+            ref={titleRef}
+            className={`health-title fade-in-up ${titleVisible ? 'visible' : ''}`}
+          >
+            Health Benefits of Mushrooms
+          </h2>
+          <p 
+            ref={subtitleRef}
+            className={`section-subtitle fade-in-up ${subtitleVisible ? 'visible' : ''}`}
+            style={{ transitionDelay: '0.2s' }}
+          >
             Discover why mushrooms are considered a superfood and how they can enhance your well-being
           </p>
           
           <div className="benefits-grid">
             {benefits.map((benefit, index) => (
-              <div 
-                key={benefit.id} 
-                className="benefit-card"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="benefit-icon">
-                  <span className="icon-emoji">{benefit.icon}</span>
-                </div>
-                
-                <div className="benefit-content">
-                  <h3 className="benefit-title">{benefit.title}</h3>
-                  <p className="benefit-description">{benefit.description}</p>
-                  
-                  <ul className="benefit-details">
-                    {benefit.details.map((detail, idx) => (
-                      <li key={idx}>{detail}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <BenefitCard 
+                key={benefit.id}
+                benefit={benefit}
+                index={index}
+              />
             ))}
           </div>
         </div>

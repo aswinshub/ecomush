@@ -59,6 +59,42 @@
   transform: translateY(-2px);
 }
 
+/* Social Media Icons */
+.header-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 2rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: white;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px) scale(1.1);
+}
+
+.mobile-social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+}
+
 /* Mobile Menu Button */
 .mobile-menu-btn {
   display: none;
@@ -169,6 +205,11 @@
   
   /* Hide desktop navigation */
   .desktop-nav {
+    display: none;
+  }
+  
+  /* Hide desktop social icons */
+  .header-social-icons {
     display: none;
   }
   

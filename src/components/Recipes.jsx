@@ -1,7 +1,82 @@
 import React, { useState, useRef, useEffect } from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Recipes.css';
 
+const RecipeCard = ({ recipe, index, openRecipeModal }) => {
+  const [cardRef, cardVisible] = useScrollAnimation({ threshold: 0.1 });
+  
+  return (
+    <div 
+      ref={cardRef}
+      className={`recipe-card ${cardVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
+      <div className="recipe-image">
+        <img src={recipe.image} alt={recipe.title} />
+      </div>
+      
+      <div className="recipe-info">
+        <h3 className="recipe-title">{recipe.title}</h3>
+        <p className="recipe-description">{recipe.description}</p>
+        
+        {recipe.tags && (
+          <div className="recipe-tags">
+            {recipe.tags.map((tag, idx) => (
+              <span key={idx} className="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+        
+        <button 
+          className="view-recipe-btn"
+          onClick={() => openRecipeModal(recipe)}
+        >
+          View Recipe
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const SliderRecipeCard = ({ recipe, cardIndex, openRecipeModal }) => {
+  const [cardRef, cardVisible] = useScrollAnimation({ threshold: 0.1, once: true });
+  
+  return (
+    <div 
+      ref={cardRef}
+      className={`recipe-card ${cardVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${cardIndex * 0.1}s` }}
+    >
+      <div className="recipe-image">
+        <img src={recipe.image} alt={recipe.title} />
+      </div>
+      
+      <div className="recipe-info">
+        <h3 className="recipe-title">{recipe.title}</h3>
+        <p className="recipe-description">{recipe.description}</p>
+        
+        {recipe.tags && (
+          <div className="recipe-tags">
+            {recipe.tags.map((tag, idx) => (
+              <span key={idx} className="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+        
+        <button 
+          className="view-recipe-btn"
+          onClick={() => openRecipeModal(recipe)}
+        >
+          View Recipe
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Recipes = () => {
+  const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
+  const [subtitleRef, subtitleVisible] = useScrollAnimation({ threshold: 0.2 });
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showAllRecipes, setShowAllRecipes] = useState(false);
@@ -188,8 +263,17 @@ const Recipes = () => {
     <section id="recipes" className="recipes">
       <div className="container">
         <div className="recipes-content">
-          <h2 className="recipes-title">Mushroom Recipes</h2>
-          <p className="section-subtitle">
+          <h2 
+            ref={titleRef}
+            className={`recipes-title fade-in-up ${titleVisible ? 'visible' : ''}`}
+          >
+            Mushroom Recipes
+          </h2>
+          <p 
+            ref={subtitleRef}
+            className={`section-subtitle fade-in-up ${subtitleVisible ? 'visible' : ''}`}
+            style={{ transitionDelay: '0.2s' }}
+          >
             Discover delicious mushroom recipes to make the most of your fresh produce
           </p>
           
@@ -209,31 +293,12 @@ const Recipes = () => {
                     {Array.from({ length: maxSlides + 1 }, (_, slideIndex) => (
                       <div key={slideIndex} className="slide-group">
                         {recipes.slice(slideIndex * 3, (slideIndex + 1) * 3).map((recipe, cardIndex) => (
-                          <div key={recipe.id} className="recipe-card" style={{ animationDelay: `${cardIndex * 0.1}s` }}>
-                            <div className="recipe-image">
-                              <img src={recipe.image} alt={recipe.title} />
-                            </div>
-                            
-                            <div className="recipe-info">
-                              <h3 className="recipe-title">{recipe.title}</h3>
-                              <p className="recipe-description">{recipe.description}</p>
-                              
-                              {recipe.tags && (
-                                <div className="recipe-tags">
-                                  {recipe.tags.map((tag, idx) => (
-                                    <span key={idx} className="tag">{tag}</span>
-                                  ))}
-                                </div>
-                              )}
-                              
-                              <button 
-                                className="view-recipe-btn"
-                                onClick={() => openRecipeModal(recipe)}
-                              >
-                                View Recipe
-                              </button>
-                            </div>
-                          </div>
+                          <SliderRecipeCard 
+                            key={recipe.id}
+                            recipe={recipe}
+                            cardIndex={cardIndex}
+                            openRecipeModal={openRecipeModal}
+                          />
                         ))}
                       </div>
                     ))}
@@ -262,31 +327,12 @@ const Recipes = () => {
             <div className="mobile-recipes-container">
               <div className="mobile-recipes-grid">
                 {getDisplayRecipes().map((recipe, index) => (
-                  <div key={recipe.id} className="recipe-card mobile-card" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <div className="recipe-image">
-                      <img src={recipe.image} alt={recipe.title} />
-                    </div>
-                    
-                    <div className="recipe-info">
-                      <h3 className="recipe-title">{recipe.title}</h3>
-                      <p className="recipe-description">{recipe.description}</p>
-                      
-                      {recipe.tags && (
-                        <div className="recipe-tags">
-                          {recipe.tags.map((tag, idx) => (
-                            <span key={idx} className="tag">{tag}</span>
-                          ))}
-                        </div>
-                      )}
-                      
-                      <button 
-                        className="view-recipe-btn"
-                        onClick={() => openRecipeModal(recipe)}
-                      >
-                        View Recipe
-                      </button>
-                    </div>
-                  </div>
+                  <RecipeCard 
+                    key={recipe.id}
+                    recipe={recipe}
+                    index={index}
+                    openRecipeModal={openRecipeModal}
+                  />
                 ))}
               </div>
               

@@ -7,6 +7,8 @@ import Products from './components/Products';
 import Recipes from './components/Recipes';
 import Journey from './components/Journey';
 import Contact from './components/Contact';
+import ScrollToTop from './components/ScrollToTop';
+import WhatsAppButton from './components/WhatsAppButton';
 import './App.css';
 
 function App() {
@@ -16,12 +18,16 @@ function App() {
       <main>
         <Hero />
         <About />
-        <MushroomBenefits />
-        <Products />
-        <Recipes />
         <Journey />
+       
+        <Products />
+        <MushroomBenefits />
+        <Recipes />
+      
         <Contact />
       </main>
+      <WhatsAppButton />
+      <ScrollToTop />
     </div>
   );
 }
