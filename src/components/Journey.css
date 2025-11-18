@@ -122,6 +122,33 @@
   font-weight: 400;
 }
 
+.founder-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.founder-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #2d5a2d;
+  border-radius: 50%;
+  background: rgba(45, 90, 45, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.founder-social-icon:hover {
+  background: #2d5a2d;
+  color: white;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 4px 12px rgba(45, 90, 45, 0.3);
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .journey {
@@ -160,6 +187,22 @@
   .author-title {
     font-size: 0.9rem;
   }
+
+  .founder-social-icons {
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+  }
+
+  .founder-social-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .founder-social-icon svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -178,5 +221,20 @@
 
   .story-description p {
     font-size: 0.95rem;
+  }
+
+  .founder-social-icons {
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .founder-social-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .founder-social-icon svg {
+    width: 18px;
+    height: 18px;
   }
 }
