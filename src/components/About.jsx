@@ -14,7 +14,7 @@ const About = () => {
             ref={textRef}
             className={`about-text fade-in-left ${textVisible ? 'visible' : ''}`}
           >
-            <h2 >Ecomush : The Fresh Mushrooms<br />in Kerala</h2>
+            <h2 >Ecomush : The Fresh Mushrooms<br />in Kannur</h2>
             <h3 ></h3>
             <div className="about-description">
               <p>

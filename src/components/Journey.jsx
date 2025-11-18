@@ -28,13 +28,16 @@ const Journey = () => {
             </h2>
             <div className="story-description">
               <p>
-                I began my career as a software developer, deeply rooted in technology and problem-solving. 
-                During the work-from-home phase of my job, I started reflecting on creating something of my own, 
-                and that curiosity led me to explore mushroom farming. My passion for sustainability and healthy 
-                living inspired me to take this new path, and the idea of providing people with fresh, high-quality 
-                food motivated me even more. This journey from coding to cultivation gave birth to Eco Mush, a 
-                startup built on eco-friendly and organic practices. It reflects my adaptability, innovation, and 
-                vision to bring healthy, sustainable produce to the community through modern, high-tech farming.
+              EcoMush didn’t just start as a business — it grew from a dream shaped by passion, creativity, and purpose.
+I began my career as a software developer, later discovering a deep love for UI/UX design.
+Even while working full-time, I kept learning and growing creatively.
+During work-from-home days, I used my free time to start a freelance design studio.
+Working with clients taught me how brands are built and how stories shape identity.
+This journey pushed me to create something meaningful and health-focused.
+My research led me to the world of mushroom farming — sustainable, nutritious, and planet-friendly.
+Mushrooms aligned with my belief: health should be a routine, not an option.
+Combining my design passion, technical discipline, and love for wellness, EcoMush was born.
+Today, EcoMush is dedicated to bringing clean, fresh, protein-rich mushrooms to every home.
               </p>
             </div>
             <div className="author-info">

@@ -4,44 +4,94 @@
   right: 30px;
   width: 56px;
   height: 56px;
-  background: #25D366;
+  background: linear-gradient(135deg, #25D366, #20BA5A);
   color: white;
-  border: none;
+  border: 3px solid rgba(138, 255, 109, 0.9);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5), 0 0 0 0 rgba(37, 211, 102, 0.7);
   z-index: 999;
-  transition: all 0.3s ease;
-  animation: pulse 2s infinite;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: float 3s ease-in-out infinite, pulseGlow 2s ease-in-out infinite;
+  overflow: visible;
+}
+
+.whatsapp-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s ease-out;
+  pointer-events: none;
+}
+
+.whatsapp-button:hover::before {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 0;
 }
 
 .whatsapp-button:hover {
-  background: #20BA5A;
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+  background: linear-gradient(135deg, #20BA5A, #1DA851);
+  border-color: rgba(255, 255, 255, 1);
+  transform: translateY(-8px) scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7), 0 0 20px rgba(37, 211, 102, 0.5);
+  animation: float 3s ease-in-out infinite, pulseGlow 1.5s ease-in-out infinite;
 }
 
 .whatsapp-button:active {
-  transform: translateY(-2px) scale(1.05);
+  transform: translateY(-5px) scale(1.1) rotate(-5deg);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6);
 }
 
 .whatsapp-button svg {
   width: 28px;
   height: 28px;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+.whatsapp-button:hover svg {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0);
   }
   50% {
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6);
+    transform: translateY(-10px) translateX(0);
   }
-  100% {
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5), 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateY(-8px) translateX(0) scale(1.15) rotate(5deg);
+  }
+  25% {
+    transform: translateY(-8px) translateX(-2px) scale(1.15) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-8px) translateX(0) scale(1.15) rotate(5deg);
+  }
+  75% {
+    transform: translateY(-8px) translateX(2px) scale(1.15) rotate(-5deg);
   }
 }
 
