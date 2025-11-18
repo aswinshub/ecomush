@@ -198,7 +198,7 @@ const Header = () => {
           {/* Mobile Social Media Icons */}
           <div className="mobile-social-icons">
             <a 
-              href="https://www.instagram.com/ecomush" 
+              href="https://www.instagram.com/ecomush.in" 
               target="_blank" 
               rel="noopener noreferrer"
               className="social-icon"
@@ -209,7 +209,7 @@ const Header = () => {
               </svg>
             </a>
             <a 
-              href="https://www.facebook.com/ecomush" 
+              href="https://www.facebook.com/profile.php?id=61583044371840" 
               target="_blank" 
               rel="noopener noreferrer"
               className="social-icon"
