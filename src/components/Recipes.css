@@ -242,6 +242,33 @@
   box-shadow: 0 6px 20px rgba(65, 221, 91, 0.4);
 }
 
+/* View More Button - Desktop */
+.view-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.recipes .view-more-btn {
+  background: #41DD5B !important;
+  color: white !important;
+  border: none !important;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(65, 221, 91, 0.3);
+}
+
+.recipes .view-more-btn:hover {
+  background: #38C653 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(65, 221, 91, 0.4);
+}
+
 /* Recipe Modal */
 .recipe-modal-overlay {
   position: fixed;
@@ -582,7 +609,7 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(65, 221, 91, 0.4);
   }
-  
+
   .recipe-modal {
     margin: 1rem;
     max-height: 95vh;

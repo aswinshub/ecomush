@@ -1,11 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
+import ScrollToTop from '../components/ScrollToTop';
+import WhatsAppButton from '../components/WhatsAppButton';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import cutletImage from '../assets/recipe/Cutlet.png';
 import momosImage from '../assets/recipe/Momos.png';
 import samosaImage from '../assets/recipe/samosa.png';
 import rollsImage from '../assets/recipe/Rolls.png';
-import './Recipes.css';
+import './RecipesPage.css';
 
 const RecipeCard = ({ recipe, index, openRecipeModal }) => {
   const [cardRef, cardVisible] = useScrollAnimation({ threshold: 0.1 });
@@ -43,50 +46,10 @@ const RecipeCard = ({ recipe, index, openRecipeModal }) => {
   );
 };
 
-const SliderRecipeCard = ({ recipe, cardIndex, openRecipeModal }) => {
-  const [cardRef, cardVisible] = useScrollAnimation({ threshold: 0.1, once: true });
-  
-  return (
-    <div 
-      ref={cardRef}
-      className={`recipe-card ${cardVisible ? 'visible' : ''}`}
-      style={{ transitionDelay: `${cardIndex * 0.1}s` }}
-    >
-      <div className="recipe-image">
-        <img src={recipe.image} alt={recipe.title} />
-      </div>
-      
-      <div className="recipe-info">
-        <h3 className="recipe-title">{recipe.title}</h3>
-        <p className="recipe-description">{recipe.description}</p>
-        
-        {recipe.tags && (
-          <div className="recipe-tags">
-            {recipe.tags.map((tag, idx) => (
-              <span key={idx} className="tag">{tag}</span>
-            ))}
-          </div>
-        )}
-        
-        <button 
-          className="view-recipe-btn"
-          onClick={() => openRecipeModal(recipe)}
-        >
-          View Recipe
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const Recipes = () => {
+const RecipesPage = () => {
   const navigate = useNavigate();
   const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
-  const [subtitleRef, subtitleVisible] = useScrollAnimation({ threshold: 0.2 });
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const sliderRef = useRef(null);
 
   const recipes = [
     {
@@ -164,7 +127,6 @@ const Recipes = () => {
       ],
       youtubeVideo: "https://www.youtube.com/embed/QunFxvL4PBQ"
     },
-    
     {
       id: 5,
       title: "മഷ്റൂം ബിരിയാണി (Mushroom Biryani)",
@@ -339,135 +301,42 @@ const Recipes = () => {
     setSelectedRecipe(null);
   };
 
-  // Check if mobile view
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Get limited recipes for display (6 for desktop, 3 for mobile)
-  const getDisplayRecipes = () => {
-    if (isMobile) {
-      return recipes.slice(0, 3);
-    }
-    return recipes.slice(0, 6);
-  };
-
-  const displayedRecipes = getDisplayRecipes();
-
-  const maxSlides = Math.ceil(displayedRecipes.length / 3) - 1;
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % (maxSlides + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + (maxSlides + 1)) % (maxSlides + 1));
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
-
   return (
-    <section id="recipes" className="recipes">
-      <div className="container">
-        <div className="recipes-content">
-          <h2 
-            ref={titleRef}
-            className={`recipes-title fade-in-up ${titleVisible ? 'visible' : ''}`}
-          >
-            Mushroom Recipes
-          </h2>
-          <p 
-            ref={subtitleRef}
-            className={`section-subtitle fade-in-up ${subtitleVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: '0.2s' }}
-          >
-            Discover delicious mushroom recipes to make the most of your fresh produce
-          </p>
-          
-          {/* Desktop Slider View */}
-          {!isMobile && (
-            <>
-              <div className="recipes-slider-container">
-                <button className="slider-btn prev-btn" onClick={prevSlide}>
-                  ‹
-                </button>
-                
-                <div className="recipes-slider" ref={sliderRef}>
-                  <div 
-                    className="recipes-track"
-                    style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                  >
-                    {Array.from({ length: maxSlides + 1 }, (_, slideIndex) => (
-                      <div key={slideIndex} className="slide-group">
-                        {displayedRecipes.slice(slideIndex * 3, (slideIndex + 1) * 3).map((recipe, cardIndex) => (
-                          <SliderRecipeCard 
-                            key={recipe.id}
-                            recipe={recipe}
-                            cardIndex={cardIndex}
-                            openRecipeModal={openRecipeModal}
-                          />
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <button className="slider-btn next-btn" onClick={nextSlide}>
-                  ›
-                </button>
-              </div>
-              
-              <div className="slider-dots">
-                {Array.from({ length: maxSlides + 1 }, (_, index) => (
-                  <button
-                    key={index}
-                    className={`dot ${index === currentSlide ? 'active' : ''}`}
-                    onClick={() => goToSlide(index)}
-                  />
-                ))}
-              </div>
-              
-              {recipes.length > 6 && (
-                <div className="view-more-container">
-                  <button className="view-more-btn" onClick={() => navigate('/recipes')}>
-                    View More Recipes
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Mobile Vertical View */}
-          {isMobile && (
-            <div className="mobile-recipes-container">
-              <div className="mobile-recipes-grid">
-                {displayedRecipes.map((recipe, index) => (
-                  <RecipeCard 
-                    key={recipe.id}
-                    recipe={recipe}
-                    index={index}
-                    openRecipeModal={openRecipeModal}
-                  />
-                ))}
-              </div>
-              
-              {recipes.length > 3 && (
-                <button className="see-more-btn" onClick={() => navigate('/recipes')}>
-                  View More Recipes
-                </button>
-              )}
+    <div className="recipes-page">
+      <Header />
+      <section className="recipes-page-section">
+        <div className="container">
+          <div className="recipes-page-content">
+            <button className="back-btn" onClick={() => navigate('/')}>
+              ← Back to Home
+            </button>
+            
+            <h2 
+              ref={titleRef}
+              className={`recipes-page-title fade-in-up ${titleVisible ? 'visible' : ''}`}
+            >
+              All Mushroom Recipes
+            </h2>
+            <p 
+              className={`recipes-page-subtitle fade-in-up ${titleVisible ? 'visible' : ''}`}
+              style={{ transitionDelay: '0.2s' }}
+            >
+              Discover delicious mushroom recipes to make the most of your fresh produce
+            </p>
+            
+            <div className="recipes-grid">
+              {recipes.map((recipe, index) => (
+                <RecipeCard 
+                  key={recipe.id}
+                  recipe={recipe}
+                  index={index}
+                  openRecipeModal={openRecipeModal}
+                />
+              ))}
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Recipe Modal */}
       {selectedRecipe && (
@@ -513,8 +382,12 @@ const Recipes = () => {
           </div>
         </div>
       )}
-    </section>
+      
+      <WhatsAppButton />
+      <ScrollToTop />
+    </div>
   );
 };
 
-export default Recipes;
+export default RecipesPage;
+

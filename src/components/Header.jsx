@@ -1,16 +1,41 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logoImage from '../assets/logo.png';
 import './Header.css';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    // If not on home page, navigate to home first
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     // Close mobile menu after clicking a link
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleRecipesClick = () => {
+    if (location.pathname === '/recipes') {
+      // If already on recipes page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/recipes');
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -23,7 +48,7 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           {/* Logo */}
-          <div className="logo">
+          <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             <div className="logo-icon">
               <img src={logoImage} alt="Eco Mush Logo" className="logo-image" />
             </div>
@@ -59,7 +84,7 @@ const Header = () => {
               <li>
                 <button 
                   className="nav-link"
-                  onClick={() => scrollToSection('recipes')}
+                  onClick={handleRecipesClick}
                 >
                   Mushroom Recipes
                 </button>
@@ -156,7 +181,7 @@ const Header = () => {
             <li>
               <button 
                 className="mobile-nav-link"
-                onClick={() => scrollToSection('recipes')}
+                onClick={handleRecipesClick}
               >
                 Mushroom Recipes
               </button>

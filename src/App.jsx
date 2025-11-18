@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -9,26 +10,38 @@ import Journey from './components/Journey';
 import Contact from './components/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import WhatsAppButton from './components/WhatsAppButton';
+import RecipesPage from './pages/RecipesPage';
 import './App.css';
 
-function App() {
+function Home() {
   return (
-    <div className="App">
+    <>
       <Header />
       <main>
         <Hero />
         <About />
         <Journey />
-       
         <Products />
         <MushroomBenefits />
         <Recipes />
-      
         <Contact />
       </main>
       <WhatsAppButton />
       <ScrollToTop />
-    </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/recipes" element={<RecipesPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
