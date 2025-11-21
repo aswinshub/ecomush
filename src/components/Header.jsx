@@ -48,7 +48,7 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           {/* Logo */}
-          <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+          <div className="logo" onClick={() => scrollToSection('home')} style={{ cursor: 'pointer' }}>
             <div className="logo-icon">
               <img src={logoImage} alt="Eco Mush Logo" className="logo-image" />
             </div>

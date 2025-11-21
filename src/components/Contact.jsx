@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AnimatedMushroom from './AnimatedMushroom';
 import logoImage from '../assets/logo.png';
 import useScrollAnimation from '../hooks/useScrollAnimation';
@@ -25,6 +26,8 @@ const ContactItem = ({ icon, title, text, index }) => {
 };
 
 const Contact = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [infoRef, infoVisible] = useScrollAnimation({ threshold: 0.2 });
   const [formRef, formVisible] = useScrollAnimation({ threshold: 0.2 });
   const [footerRef, footerVisible] = useScrollAnimation({ threshold: 0.2 });
@@ -34,6 +37,25 @@ const Contact = () => {
     phone: '',
     message: ''
   });
+
+  const scrollToHome = () => {
+    // If not on home page, navigate to home first
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation, then scroll
+      setTimeout(() => {
+        const element = document.getElementById('home');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById('home');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -165,7 +187,7 @@ const Contact = () => {
           className={`contact-footer fade-in-up ${footerVisible ? 'visible' : ''}`}
         >
           <div className="footer-content">
-            <div className="footer-logo">
+            <div className="footer-logo" onClick={scrollToHome} style={{ cursor: 'pointer' }}>
               <img src={logoImage} alt="Eco Mush Logo" className="footer-logo-image" />
              
             </div>

@@ -1,5 +1,5 @@
 .products {
-  background: linear-gradient(45deg, #41DD5B 0%, #38C653 50%, #41DD5B 100%);
+  background: linear-gradient(45deg, #18C657 0%, #38C653 50%, #18C657 100%);
   position: relative;
   overflow: hidden;
 }
@@ -139,7 +139,7 @@
 
 .order-btn {
   background: white;
-  color: #41DD5B;
+  color: #18C657;
   border: none;
   padding: 0.8rem 1.5rem;
   border-radius: 25px;

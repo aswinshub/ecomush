@@ -9,6 +9,7 @@ import Recipes from './components/Recipes';
 import Journey from './components/Journey';
 import Contact from './components/Contact';
 import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 import WhatsAppButton from './components/WhatsAppButton';
 import RecipesPage from './pages/RecipesPage';
 import './App.css';
@@ -36,6 +37,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <ScrollToTopOnRouteChange />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recipes" element={<RecipesPage />} />

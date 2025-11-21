@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(65, 221, 91, 0.95);
+  background: #18C657 ;
   backdrop-filter: blur(10px);
   z-index: 1000;
   padding: 1rem 0;

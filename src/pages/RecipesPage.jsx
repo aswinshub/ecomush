@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import ScrollToTop from '../components/ScrollToTop';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -10,37 +10,79 @@ import samosaImage from '../assets/recipe/samosa.png';
 import rollsImage from '../assets/recipe/Rolls.png';
 import './RecipesPage.css';
 
-const RecipeCard = ({ recipe, index, openRecipeModal }) => {
-  const [cardRef, cardVisible] = useScrollAnimation({ threshold: 0.1 });
+const RecipeListItem = ({ recipe, index, onRecipeClick }) => {
+  const [itemRef, itemVisible] = useScrollAnimation({ threshold: 0.1 });
   
   return (
     <div 
-      ref={cardRef}
-      className={`recipe-card ${cardVisible ? 'visible' : ''}`}
+      ref={itemRef}
+      className={`recipe-list-item ${itemVisible ? 'visible' : ''}`}
       style={{ transitionDelay: `${index * 0.1}s` }}
+      onClick={() => onRecipeClick(recipe.id)}
     >
-      <div className="recipe-image">
+      <div className="recipe-list-image">
         <img src={recipe.image} alt={recipe.title} />
       </div>
-      
-      <div className="recipe-info">
-        <h3 className="recipe-title">{recipe.title}</h3>
-        <p className="recipe-description">{recipe.description}</p>
-        
+      <div className="recipe-list-content">
+        <h3 className="recipe-list-title">{recipe.title}</h3>
         {recipe.tags && (
-          <div className="recipe-tags">
+          <div className="recipe-list-tags">
             {recipe.tags.map((tag, idx) => (
-              <span key={idx} className="tag">{tag}</span>
+              <span key={idx} className="recipe-list-tag">{tag}</span>
             ))}
           </div>
         )}
+      </div>
+      <div className="recipe-list-arrow">→</div>
+    </div>
+  );
+};
+
+const RecipeDetail = ({ recipe, index }) => {
+  return (
+    <div 
+      id={`recipe-${recipe.id}`}
+      className="recipe-detail"
+    >
+      <div className="recipe-detail-content">
+        <div className="recipe-detail-left">
+          <h2 className="recipe-detail-title">{recipe.title}</h2>
+          <p className="recipe-detail-description">{recipe.description}</p>
+          
+          <div className="recipe-detail-image">
+            <img src={recipe.image} alt={recipe.title} />
+          </div>
+          
+          <div className="steps-section">
+            <h3>തയ്യാറാക്കുന്ന വിധം</h3>
+            <ol className="steps-list">
+              {recipe.steps.map((step, idx) => (
+                <li key={idx}>{step}</li>
+              ))}
+            </ol>
+          </div>
+        </div>
         
-        <button 
-          className="view-recipe-btn"
-          onClick={() => openRecipeModal(recipe)}
-        >
-          View Recipe
-        </button>
+        <div className="recipe-detail-right">
+          <div className="ingredients-section">
+            <h3>ചേരുവകൾ</h3>
+            <ul className="ingredients-list">
+              {recipe.ingredients.map((ingredient, idx) => (
+                <li key={idx}>{ingredient}</li>
+              ))}
+            </ul>
+          </div>
+          
+          <div className="video-container">
+            <iframe
+              src={recipe.youtubeVideo}
+              title={recipe.title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -48,8 +90,9 @@ const RecipeCard = ({ recipe, index, openRecipeModal }) => {
 
 const RecipesPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [listRef, listVisible] = useScrollAnimation({ threshold: 0.1 });
 
   const recipes = [
     {
@@ -125,7 +168,7 @@ const RecipesPage = () => {
         "വെള്ളം വറ്റിയ ശേഷം തേങ്ങാപ്പാൽ ചേർത്ത് അല്പം തിളപ്പിക്കുക",
         "ഉപ്പ് ചേർത്ത് ചൂടോടെ വിളമ്പുക"
       ],
-      youtubeVideo: "https://www.youtube.com/embed/QunFxvL4PBQ"
+      youtubeVideo: "https://www.youtube.com/embed/M8OKPq9p9ms"
     },
     {
       id: 5,
@@ -293,13 +336,60 @@ const RecipesPage = () => {
     }
   ];
 
-  const openRecipeModal = (recipe) => {
-    setSelectedRecipe(recipe);
+  const scrollToRecipe = (recipeId) => {
+    const element = document.getElementById(`recipe-${recipeId}`);
+    if (element) {
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
-  const closeRecipeModal = () => {
-    setSelectedRecipe(null);
-  };
+  // Scroll to top when component mounts or location changes
+  useEffect(() => {
+    // Disable browser scroll restoration
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    
+    // Function to force scroll to top
+    const forceScrollToTop = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+    
+    // Immediate scroll
+    forceScrollToTop();
+    
+    // Scroll after a short delay to ensure it works after content renders
+    const timeoutId1 = setTimeout(forceScrollToTop, 0);
+    
+    // Additional scroll after content is fully loaded
+    const timeoutId2 = setTimeout(forceScrollToTop, 100);
+    
+    // Scroll after animations might have started
+    const timeoutId3 = setTimeout(forceScrollToTop, 300);
+    
+    // Final scroll check after a longer delay to catch any late scrolls
+    const timeoutId4 = setTimeout(() => {
+      if (window.pageYOffset > 50) {
+        forceScrollToTop();
+      }
+    }, 800);
+    
+    return () => {
+      clearTimeout(timeoutId1);
+      clearTimeout(timeoutId2);
+      clearTimeout(timeoutId3);
+      clearTimeout(timeoutId4);
+    };
+  }, [location.pathname]);
 
   return (
     <div className="recipes-page">
@@ -321,67 +411,44 @@ const RecipesPage = () => {
               className={`recipes-page-subtitle fade-in-up ${titleVisible ? 'visible' : ''}`}
               style={{ transitionDelay: '0.2s' }}
             >
-              Discover delicious mushroom recipes to make the most of your fresh produce
+              Click on any recipe below to view its details
             </p>
             
-            <div className="recipes-grid">
-              {recipes.map((recipe, index) => (
-                <RecipeCard 
-                  key={recipe.id}
-                  recipe={recipe}
-                  index={index}
-                  openRecipeModal={openRecipeModal}
-                />
-              ))}
+            {/* Recipe List */}
+            <div 
+              ref={listRef}
+              className={`recipe-list-container ${listVisible ? 'visible' : ''}`}
+            >
+              <div className="recipe-list">
+                {recipes.map((recipe, index) => (
+                  <RecipeListItem 
+                    key={recipe.id}
+                    recipe={recipe}
+                    index={index}
+                    onRecipeClick={scrollToRecipe}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Recipe Modal */}
-      {selectedRecipe && (
-        <div className="recipe-modal-overlay" onClick={closeRecipeModal}>
-          <div className="recipe-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={closeRecipeModal}>×</button>
-            
-            <div className="modal-content">
-              <div className="modal-left">
-                <h2 className="modal-title">{selectedRecipe.title}</h2>
-                
-                <div className="ingredients-section">
-                  <h3>ചേരുവകൾ</h3>
-                  <ul className="ingredients-list">
-                    {selectedRecipe.ingredients.map((ingredient, index) => (
-                      <li key={index}>{ingredient}</li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="steps-section">
-                  <h3>തയ്യാറാക്കുന്ന വിധം</h3>
-                  <ol className="steps-list">
-                    {selectedRecipe.steps.map((step, index) => (
-                      <li key={index}>{step}</li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-              
-              <div className="modal-right">
-                <div className="video-container">
-                  <iframe
-                    src={selectedRecipe.youtubeVideo}
-                    title={selectedRecipe.title}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
+      {/* Recipe Details Section */}
+      <section className="recipe-details-section">
+        <div className="container">
+          <div className="recipe-details-content">
+            <h2 className="recipe-details-title">Recipe Details</h2>
+            {recipes.map((recipe, index) => (
+              <RecipeDetail 
+                key={recipe.id}
+                recipe={recipe}
+                index={index}
+              />
+            ))}
           </div>
         </div>
-      )}
+      </section>
       
       <WhatsAppButton />
       <ScrollToTop />

@@ -92,7 +92,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #41DD5B, #38C653);
+  background: linear-gradient(90deg, #18C657, #38C653);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -155,7 +155,7 @@
 
 .benefit-details li::before {
   content: '✓';
-  color: #41DD5B;
+  color: #18C657;
   font-weight: bold;
   position: absolute;
   left: 0;

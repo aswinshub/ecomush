@@ -86,7 +86,7 @@
 }
 
 .slider-btn {
-  background: #41DD5B;
+  background: #18C657;
   color: white;
   border: none;
   width: 50px;
@@ -135,7 +135,7 @@
 }
 
 .dot.active {
-  background: #41DD5B;
+  background: #18C657;
   transform: scale(1.2);
   box-shadow: 0 2px 8px rgba(65, 221, 91, 0.3);
 }
@@ -222,7 +222,7 @@
 }
 
 .view-recipe-btn {
-  background: #41DD5B;
+  background: #18C657;
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
@@ -250,7 +250,7 @@
 }
 
 .recipes .view-more-btn {
-  background: #41DD5B !important;
+  background: #18C657 !important;
   color: white !important;
   border: none !important;
   padding: 1rem 2rem;
@@ -590,7 +590,7 @@
   
   /* See More Button */
   .see-more-btn {
-    background: #41DD5B;
+    background: #18C657;
     color: white;
     border: none;
     padding: 1rem 2rem;
