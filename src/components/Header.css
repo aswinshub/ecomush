@@ -151,7 +151,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: rgba(65, 221, 91, 0.98);
+  background:#18C657;
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   transform: translateY(-100%);
